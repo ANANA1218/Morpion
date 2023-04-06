@@ -1,6 +1,9 @@
 package hitema.java;
+
+import hitema.java.display.Display;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.*;
 
 import static hitema.java.domain.CheckWinner.checkWinner;
 import static hitema.java.modeles.PrintBoard.printBoard;
@@ -12,12 +15,11 @@ public class Morpion {
     static String player1;
     static String player2;
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         boolean playAgain = true;
 
-        while(playAgain){
+        while (playAgain) {
             board = new String[9];
             turn = "X";
             String winner = null;
@@ -34,8 +36,6 @@ public class Morpion {
             System.out.println(player1 + " sera le x, et " + player2 + " sera le o.");
             printBoard();
 
-
-
             System.out.println(player1 + " commence. Veuillez saisir un numéro d'emplacement pour placer x:");
 
             while (winner == null) {
@@ -48,66 +48,66 @@ public class Morpion {
                 try {
                     numInput = in.nextInt();
                     if (!(numInput > 0 && numInput <= 9)) {
-                        System.out.println(
-                                "Invalide ; re-entrer un numéro:");
+                        System.out.println("Invalide ; re-entrer un numéro:");
                         continue;
                     }
-                }
-                catch (InputMismatchException e) {
-                    System.out.println(
-                            "Invalide ; re-entrer un numéro:");
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalide ; re-entrer un numéro:");
+                    in.nextLine(); //clear scanner input buffer
                     continue;
                 }
 
                 // This game has two player x and O.
                 // Here is the logic to decide the turn.
-                if (board[numInput - 1].equals(
-                        String.valueOf(numInput))) {
+                if (board[numInput - 1].equals(String.valueOf(numInput))) {
                     board[numInput - 1] = turn;
 
                     if (turn.equals("X")) {
                         turn = "O";
-                    }
-                    else {
+                    } else {
                         turn = "X";
                     }
 
                     printBoard();
                     winner = checkWinner();
-                }
-                else {
-                    System.out.println(
-                            " emplacement indisponible; re-entrer un numéro:");
+                } else {
+                    System.out.println(" emplacement indisponible; re-entrer un numéro:");
                 }
             }
 
             // If no one win or lose from both player x and O.
             // then here is the logic to print "draw".
             if (winner.equalsIgnoreCase("égalité")) {
-                System.out.println(
-                        " égalité! Merci d'avoir joué.");
+                System.out.println(" égalité! Merci d'avoir joué.");
             }
 
             // For winner -to display Congratulations! message.
             else {
-                System.out.println(
-                        "Félicitation! " + winner
-                                + " a gagné! Merci d'avoir joué.");
+                System.out.println("Félicitation! " + winner + " a gagné! Merci d'avoir joué.");
             }
 
             //ask user if they want to play again
             System.out.println("Voulez-vous jouer à nouveau? (o/n)");
-            String playAgainAnswer = in.next();
-            if(playAgainAnswer.equalsIgnoreCase("n")){
+            String playAgainAnswer = "";
+            try {
+                playAgainAnswer = in.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Veuillez entrer une chaîne de caractères valide.");
+                continue;
+            }
+
+            if (playAgainAnswer.equalsIgnoreCase("n")) {
                 playAgain = false;
-                System.out.println("Ok Bye !!");
             } else {
                 playAgain = true;
             }
 
+
             //clear scanner input buffer
             in.nextLine();
         }
+
+        Display.displayConsole();
 
         in.close();
     }
