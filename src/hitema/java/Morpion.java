@@ -86,25 +86,24 @@ public class Morpion {
                 System.out.println("Félicitation! " + winner + " a gagné! Merci d'avoir joué.");
             }
 
-            //ask user if they want to play again
+
             System.out.println("Voulez-vous jouer à nouveau? (o/n)");
-            String playAgainAnswer = "";
             try {
-                playAgainAnswer = in.nextLine();
+                String playAgainAnswer = in.next();
+                if (playAgainAnswer.equalsIgnoreCase("n")) {
+                    playAgain = false;
+                } else {
+                    playAgain = true;
+                }
             } catch (InputMismatchException e) {
-                System.out.println("Veuillez entrer une chaîne de caractères valide.");
+                System.out.println("Invalide ; re-entrer votre choix:");
+                in.nextLine(); // clear scanner input buffer
                 continue;
             }
 
-            if (playAgainAnswer.equalsIgnoreCase("n")) {
-                playAgain = false;
-            } else {
-                playAgain = true;
-            }
-
-
-            //clear scanner input buffer
+// clear scanner input buffer
             in.nextLine();
+
         }
 
         Display.displayConsole();
