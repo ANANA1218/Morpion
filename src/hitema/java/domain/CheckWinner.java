@@ -61,8 +61,8 @@ public class CheckWinner {
 
 
         System.out.println(
-                turn + " ensuite "
-                        + turn + " ensuite:");
+                turn + " ensuite, entrer un numéro d'emplacement pour placer "
+                        + turn + " :");
         return null;
     }
 }
