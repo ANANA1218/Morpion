@@ -61,8 +61,8 @@ public class CheckWinner {
 
 
         System.out.println(
-                turn + " "
-                        + turn + " in:");
+                turn + " ensuite "
+                        + turn + " ensuite:");
         return null;
     }
 }
