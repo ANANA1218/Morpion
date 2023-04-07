@@ -59,9 +59,9 @@ public class CheckWinner {
             }
         }
 
-        // To enter the X Or O at the exact place on board.
+
         System.out.println(
-                turn + "'s turn; enter a slot number to place "
+                turn + " "
                         + turn + " in:");
         return null;
     }
